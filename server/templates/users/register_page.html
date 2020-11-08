@@ -1,0 +1,24 @@
+{% extends "main_template.html" %}
+{% load crispy_forms_tags %}
+
+{% block mainbody %}
+<div class="container">
+    <div class="col-sm-6">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Регистрация</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Зарегистрироваться</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Уже есть аккаунт? <a class="ml-2" href="#">Войти</a>
+            </small>
+        </div>
+    </div>
+</div>
+{% endblock mainbody %}

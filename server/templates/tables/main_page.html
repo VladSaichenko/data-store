@@ -1,0 +1,67 @@
+{% extends "main_template.html" %}
+
+{% block mainbody %}
+<div class="container" style="width: 30%; margin: 0 auto;">
+    {% if not table %}
+    <h3 align="center">Загрузка .csv файла</h3>
+    {% else %}
+    <h3 align="center">Загрузить новый .csv файл</h3>
+    {% endif %}
+    <form action="{% url 'upload_csv' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="custom-file">
+            <input type="file" name="file" class="custom-file-input" id="file1">
+            <label class="custom-file-label" for="file1">Выбрать файл</label>
+            <br>
+            <br>
+            <div style=" width: 30%; margin: 0 auto;">
+                <button type="submit" class="btn btn-outline-success">Загрузить</button>
+            </div>
+        </div>
+    </form>
+    {% if messages %}
+    {% for message in messages %}
+    <br>
+    <div class="alert alert-danger" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+<br>
+<br>
+{% if table %}
+
+<div class="container" style="margin: 0 auto;">
+    <h4 align="center">Добавить данные в таблицу</h4>
+    <p><em>Колонок: {{ table_info.columns_len }}, Количество строк: {{ table_info.table_len }}</em></p>
+    <form action="{% url 'add_column' %}" method="POST" class="form-inline">
+        {% csrf_token %}
+        <input type="text" class="form-control" name="new_column" placeholder="Название колонки" required>&nbsp
+        <button type="submit" class="btn btn-primary m-2"><i class="fa fa-arrow-circle-o-up"
+                                                             aria-hidden="true"></i> Добавить колонку
+        </button>
+    </form>
+    <hr>
+    <form action="{% url 'append_to_table' %}" method="POST" class="form-inline">
+        {% csrf_token %}
+        {% for column in columns %}
+        <div class="form-group">
+            <input type="text" class="form-control" name="{{column}}" placeholder="{{column}}" required>&nbsp
+
+        </div>
+        <br>
+        <br>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary m-2" onclick="update($(this));"><i class="fa fa-arrow-circle-o-up"
+                                                                                        aria-hidden="true"></i> Добавить
+        </button>
+    </form>
+</div>
+{% endif %}
+<div class="container" style="margin: 0 auto;">
+    {% if table %}
+    {{ table|safe }}
+    {% endif %}
+</div>
+{% endblock mainbody %}

@@ -1,0 +1,26 @@
+{% extends "main_template.html" %}
+
+{% block mainbody %}
+<div class="container" style="margin: 0 auto;">
+    <h3 align="center">Отчётная страница</h3>
+    <form action="{% url 'report' %}" method="POST" class="form-inline">
+        {% csrf_token %}
+        {% for column in columns %}
+        <div class="form-group">
+            <select class="form-control" name="choice_{{column}}">
+                <option>Больше</option>
+                <option>Равно</option>
+                <option>Меньше</option>
+            </select>
+            <input type="text" class="form-control" name="{{column}}" placeholder="{{column}}">&nbsp&nbsp
+        </div>
+        <br>
+        <br>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary m-2">Фильтровать</button>
+        <a href="{% url 'report' %}" type="button" class="btn btn-secondary">Очистить фильтры</a>
+    </form>
+    <hr>
+    {{ table|safe }}
+</div>>
+{% endblock mainbody %}
