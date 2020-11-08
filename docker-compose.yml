@@ -10,7 +10,7 @@ services:
         ports:
             - 8000:8000
         depends_on:
-            - db
+            - db 
         environment:
             DEBUG: 'True'
             DATABASE_URL: 'postgres://postgres:@db:5432/postgres'
