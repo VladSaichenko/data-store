@@ -80,3 +80,5 @@ README
 ##### Доступ
 
 * http://localhost
+
+https://drive.google.com/file/d/1srVQCAT-ui1w8Q3OTQEztYwMkdRMJb4W/view?usp=sharing
